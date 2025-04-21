@@ -1,4 +1,5 @@
 <form action="<%= @post_uri %>" method="POST">
+    <input type="hidden" name="_method" value="PATCH">
     <div class="memo_name">
         <input type="text" name="name" value="<%= @name %>">
     </div>

@@ -81,3 +81,6 @@ build-iPhoneSimulator/
 
 # bundler file
 vendor
+
+# data file
+memos.json
