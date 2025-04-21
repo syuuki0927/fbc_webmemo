@@ -1,0 +1,7 @@
+---
+glob: "**/*.erb"
+exclude:
+  - '**/vendor/**/*'
+linters:
+  RequireInputAutocomplete:
+    enabled: false

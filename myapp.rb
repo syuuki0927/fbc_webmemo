@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 require 'rubygems'
 
 require 'sinatra'
 require 'sinatra/reloader'
 require 'json'
 
-MEMO_JSON_PATH = './memos.json'.freeze
+MEMO_JSON_PATH = './memos.json'
 
 memos = if File.exist?(MEMO_JSON_PATH)
           JSON.load_file(MEMO_JSON_PATH)
