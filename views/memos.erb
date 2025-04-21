@@ -1,0 +1,11 @@
+<h2><%= @name %></h2>
+<%= @content%>
+<div class="bottom_buttons">
+    <div class="float_right">
+        <button onclick="location.href=<%= @edit_uri %>" style="margin-inline: 1px">変更</button>
+        <form method="post" action=<%= @delete_uri %> style="margin-inline: 1px">
+            <input type="hidden" name="_method" value="DELETE">
+            <input type="submit" value="削除">
+        </form>
+    </div>
+</div>

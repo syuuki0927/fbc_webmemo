@@ -1,0 +1,11 @@
+<form action="<%= @post_uri %>" method="POST">
+    <div class="memo_name">
+        <input type="text" name="name" value="<%= @name %>">
+    </div>
+    <div class="memo_content">
+        <textarea name="content" rows="5"><%= @content %></textarea>
+    </div>
+    <div class="bottom_buttons">
+        <input type="submit" value="保存">
+    </div>
+</form>
