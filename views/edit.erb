@@ -1,4 +1,4 @@
-<form action="/memos/<%= @memo.id %>/edit" method="POST">
+<form action="/memos/<%= @memo.id %>" method="POST">
     <input type="hidden" name="_method" value="PATCH">
     <div class="memo_name">
         <input type="text" name="name" value="<%= @memo.name %>">

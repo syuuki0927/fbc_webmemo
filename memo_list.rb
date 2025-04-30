@@ -20,16 +20,10 @@ class MemoList
                     JSON.parse('[]')
                   end
     @memos = json_parsed.map do |memo|
-      Memo.new(memo[:id], memo[:name], memo[:content])
+      Memo.new(*memo.values_at(:id, :name, :content))
     end
     @current_id = @memos.empty? ? 0 : @memos[-1].id
   end
-
-  def new_id
-    @current_id += 1
-    @current_id
-  end
-  private :new_id
 
   def get_memo(id)
     @memos.find do |memo|
@@ -37,30 +31,37 @@ class MemoList
     end
   end
 
-  def add_memo(name, content = '')
+  def add(name, content = '')
     new_memo = Memo.new(new_id, name, content)
     @memos << new_memo
     store_json
     new_memo
   end
 
-  # add_memoのエイリアスメソッド
+  # addのエイリアスメソッド
   def new_memo(name, content = '')
-    add_memo(name, content)
+    add(name, content)
   end
 
-  def edit_memo(id, name, content = '')
+  def edit(id, name, content = '')
     memo = get_memo(id)
     memo.edit(name, content)
     store_json
     memo
   end
 
-  def delete_memo(id)
+  def delete(id)
     @memos.delete_if do |memo|
-      memo.id == id
+      memo.id == id.to_i
     end
     store_json
+  end
+
+  private
+
+  def new_id
+    @current_id += 1
+    @current_id
   end
 
   def store_json
