@@ -38,10 +38,7 @@ class MemoList
     new_memo
   end
 
-  # addのエイリアスメソッド
-  def new_memo(name, content = '')
-    add(name, content)
-  end
+  alias new_memo add
 
   def edit(id, name, content = '')
     memo = get_memo(id)
