@@ -1,0 +1,45 @@
+.memo_name {
+    width: 80%;
+    background: #e3b732;
+    border-radius: 10px;
+}
+
+.memo_content {
+    margin-top: 10px;
+}
+
+.bottom_buttons {
+    margin-inline: auto;
+    width: 8em;
+}
+
+.float_right {
+    display: flex;
+    justify-content: center;
+}
+
+input[type=text] {
+    border: 3px solid;
+    background: #e3b732;
+    width: 100%;
+    padding-inline: 0;
+    border-radius: 10px;
+    text-indent: 5px;
+}
+
+input[type=text]:focus {
+    outline: none;
+}
+
+textarea {
+    border: 3px solid;
+    background: #e3b732;
+    padding-inline: 0;
+    width: 80%;
+    text-indent: 5px;
+    border-radius: 10px;
+}
+
+textarea:focus {
+    outline: none;
+}

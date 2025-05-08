@@ -1,0 +1,8 @@
+<ul>
+    <% @memos.map.with_index do |memo, memo_index| %>
+        <li><a href='/memos/<%= memo.id %>'><%= memo.name %></a></li>
+    <% end %>
+</ul>
+<div class="bottom_buttons">
+<button onclick="location.href='/memos/new'">追加</button>
+</div>

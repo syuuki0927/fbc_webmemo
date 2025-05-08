@@ -1,0 +1,12 @@
+<form action="/memos/<%= @memo.id %>" method="POST">
+    <input type="hidden" name="_method" value="PATCH">
+    <div class="memo_name">
+        <input type="text" name="name" value="<%= @memo.name %>">
+    </div>
+    <div class="memo_content">
+        <textarea name="content" rows="5"><%= @memo.content %></textarea>
+    </div>
+    <div class="bottom_buttons">
+        <input type="submit" value="保存">
+    </div>
+</form>
