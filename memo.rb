@@ -7,7 +7,7 @@ class Memo
   attr_accessor :id
 
   def initialize(id, name, content = '')
-    @id = id
+    @id = id.to_i
     @name = name
     @content = content
   end

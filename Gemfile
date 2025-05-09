@@ -3,6 +3,7 @@
 source 'https://rubygems.org'
 
 gem 'erb_lint', require: false
+gem 'pg'
 gem 'puma'
 gem 'rackup'
 gem 'ruby-lsp', require: false
