@@ -7,9 +7,8 @@ bundle install
 ```
 
 ### DBの準備
+- postgresにスーパーユーザー`postgres`を作成する
 ```
-# postgreSQLにユーザーpostgresを作成
-psql -Upostgres
 # prepareDBを実行
 ./prepareDB_Table.sh
 ```
