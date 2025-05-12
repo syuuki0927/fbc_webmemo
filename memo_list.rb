@@ -26,7 +26,7 @@ class MemoList
   end
 
   def add(name, content = '')
-    query = "INSERT INTO Memos (id, name, content) VALUES(nextval('memos_seq'), $1, $2) RETURNING id;"
+    query = 'INSERT INTO Memos (name, content) VALUES($1, $2) RETURNING id;'
     @conn.exec_params(query, [name, content]) do |result|
       result.map do |row|
         new_memo = Memo.new(row['id'], name, content)

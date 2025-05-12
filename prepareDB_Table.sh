@@ -3,9 +3,8 @@
 createdb webmemo -O postgres;
 
 psql -U postgres -d webmemo << EOF
-    create sequence memos_seq;
     create table Memos(
-        id INTEGER NOT NULL,
+        id SERIAL NOT NULL,
         name VARCHAR(128) NOT NULL,
         content TEXT,
         PRIMARY KEY (id));
