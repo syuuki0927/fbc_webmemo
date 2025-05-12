@@ -6,8 +6,6 @@ require 'sinatra'
 require 'sinatra/reloader'
 require_relative 'memo_list'
 
-MEMO_JSON_PATH = './memos.json'
-
 memos = MemoList.instance
 
 get '/' do

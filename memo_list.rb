@@ -1,11 +1,8 @@
 # frozen_string_literal: true
 
-require 'json'
 require 'singleton'
 require 'pg'
 require_relative 'memo'
-
-MEMO_JSON_PATH = './memos.json'
 
 # メモのリスト
 class MemoList
@@ -15,13 +12,11 @@ class MemoList
 
   def initialize
     @conn = PG.connect(dbname: 'webmemo')
-    @conn.exec('SELECT * FROM memos') do |result|
+    @conn.exec('SELECT * FROM memos ORDER BY id') do |result|
       @memos = result.map do |row|
         Memo.new(*row.values_at('id', 'name', 'content'))
       end
     end
-    @memos.sort! { |a, b| a.id <=> b.id }
-    @current_id = @memos.empty? ? 0 : @memos[-1].id
   end
 
   def get_memo(id)
@@ -31,14 +26,15 @@ class MemoList
   end
 
   def add(name, content = '')
-    id = new_id
-    new_memo = Memo.new(id, name, content)
-    @memos << new_memo
+    query = "INSERT INTO Memos (id, name, content) VALUES(nextval('memos_seq'), $1, $2) RETURNING id;"
+    @conn.exec_params(query, [name, content]) do |result|
+      result.map do |row|
+        new_memo = Memo.new(row['id'], name, content)
+        @memos << new_memo
+      end
+    end
 
-    query = 'INSERT INTO Memos (id, name, content) VALUES($1::int, $2::varchar, $3::text);'
-    @conn.exec_params(query, [new_memo.id, @conn.escape(new_memo.name), @conn.escape(new_memo.content)])
-
-    new_memo
+    @memos[-1]
   end
 
   alias new_memo add
@@ -47,8 +43,8 @@ class MemoList
     memo = get_memo(id)
     memo.edit(name, content)
 
-    query = 'UPDATE Memos SET name = $1::varchar, content= $2::text WHERE id = $3::int'
-    @conn.exec_params(query, [@conn.escape(memo.name), @conn.escape(memo.content), memo.id])
+    query = 'UPDATE Memos SET name = $1, content= $2 WHERE id = $3'
+    @conn.exec_params(query, [memo.name, memo.content, memo.id])
     memo
   end
 
@@ -56,14 +52,7 @@ class MemoList
     @memos.delete_if do |memo|
       memo.id == id.to_i
     end
-    query = 'DELETE FROM Memos WHERE id = $1::int'
+    query = 'DELETE FROM Memos WHERE id = $1'
     @conn.exec_params(query, [id])
-  end
-
-  private
-
-  def new_id
-    @current_id += 1
-    @current_id
   end
 end
